@@ -1,0 +1,18 @@
+
+FROM blakeblackshear/frigate:0.15.1
+
+# Cài VAAPI và intel-media-driver
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        i965-va-driver \
+        intel-media-va-driver-non-free \
+        vainfo \
+        libva-drm2 \
+        libva-x11-2 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Kiểm tra driver
+RUN vainfo || true
+
+LABEL built_at="2025-06-17T15:48:39.224207Z"
